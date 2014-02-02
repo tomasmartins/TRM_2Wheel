@@ -89,12 +89,12 @@ void motor_speed (int SA1,int SA2,int SB1,int SB2){
 int main (void)
 {
     setup () ;
-    
+    motor_speed(50,10,50,10);
     while(loops < 100){
         loops++;
         delay(20);
-        motor_speed(50,10,50,10);
         read_sensor ();
-        printf ("Data:%5hd %5hd %5hd %5hd %5hd %5hd %5hd %5hd %5hd\n",ax,ay,az,gx,gy,gz,cx,cy,cz);
+        printf ("%5hd %5hd %5hd %5hd %5hd %5hd %5hd %5hd %5hd\n",ax,ay,az,gx,gy,gz,cx,cy,cz);
     }
+    motor_speed(0,0,0,0);
 }
