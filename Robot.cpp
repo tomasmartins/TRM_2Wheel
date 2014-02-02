@@ -87,8 +87,8 @@ int main (void)
     setup () ;
     
     for(;;){
-        motor_speed(50,0,50,0);
+        motor_speed(50,10,50,10);
         read_sensor ();
-        printf ("Acell :\n"ax);
+        printf ("Data:%5hd %5hd %5hd %5hd %5hd %5hd %5hd %5hd %5hd\n",ax,ay,az,gx,gy,gz,cx,cy,cz);
     }
 }
