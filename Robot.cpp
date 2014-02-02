@@ -19,6 +19,8 @@ int LED = 2;
 int16_t ax, ay, az;
 int16_t gx, gy, gz;
 int16_t cx, cy, cz;
+MPU6050 accelgyro;
+HMC5883L magnetom;
 
 
 //setup
@@ -44,10 +46,10 @@ int16_t cx, cy, cz;
     pinMode (LED, OUTPUT) ;
     // initialize MPU6050 and HMC5883L.
     printf("Initializing I2C devices...\n");
-    MPU6050.initialize();
-    MPU6050.setI2CMasterModeEnabled(0);
-    MPU6050.setI2CBypassEnabled(1);
-    HMC5883L.initialize();
+    accelgyro.initialize();
+    accelgyro.setI2CMasterModeEnabled(0);
+    accelgyro.setI2CBypassEnabled(1);
+    magnetom.initialize();
     
     // verify connection
     printf("Testing device connections...\n");
@@ -60,9 +62,9 @@ int16_t cx, cy, cz;
 void read_sensor () {
 
     // read raw accel/gyro measurements from device.
-    HMC5883L.getHeading(&cx, &cy, &cz);
-    MPU6050.getAcceleration(&ax, &ay, &az);
-    MPU6050.getRotation(&gx, &gy, &gz);
+    magnetom.getHeading(&cx, &cy, &cz);
+    accelgyro.getAcceleration(&ax, &ay, &az);
+    accelgyro.getRotation(&gx, &gy, &gz);
     //accelgyro.getMotion6(&ax, &ay, &az, &gx, &gy, &gz);
 }
 
