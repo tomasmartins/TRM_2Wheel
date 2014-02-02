@@ -89,6 +89,6 @@ int main (void)
     for(;;){
         motor_speed(50,0,50,0);
         read_sensor ();
-        printf ("Acell %5hd ",ax);
+        printf ("Acell :\n"ax);
     }
 }
