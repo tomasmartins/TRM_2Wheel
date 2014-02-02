@@ -89,6 +89,7 @@ int main (void)
     
     while(loops == 25){
         loops++;
+        delay(20);
         motor_speed(50,10,50,10);
         read_sensor ();
         printf ("Data:%5hd %5hd %5hd %5hd %5hd %5hd %5hd %5hd %5hd\n",ax,ay,az,gx,gy,gz,cx,cy,cz);
