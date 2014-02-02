@@ -1,5 +1,8 @@
 
 //Made by Tomás Roda Martins (t_martins)
+//compile: git pull origin
+//gcc -Wall -o robot Robot.cpp HMC5883L.cpp  MPU6050.cpp  I2Cdev.cpp -lwiringPi -lpthread
+// sudo ./robot
 #include <stdio.h>
 #include <stdlib.h>
 #include <unistd.h>
@@ -87,7 +90,7 @@ int main (void)
 {
     setup () ;
     
-    while(loops < 25){
+    while(loops < 100){
         loops++;
         delay(20);
         motor_speed(50,10,50,10);
