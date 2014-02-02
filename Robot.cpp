@@ -87,7 +87,7 @@ int main (void)
 {
     setup () ;
     
-    while(loops == 25){
+    while(loops < 25){
         loops++;
         delay(20);
         motor_speed(50,10,50,10);
