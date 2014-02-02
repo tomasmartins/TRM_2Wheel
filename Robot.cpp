@@ -22,7 +22,7 @@ int LED = 2;
 int16_t ax, ay, az;
 int16_t gx, gy, gz;
 int16_t cx, cy, cz;
-MPU6050 accelgyro;
+MPU6050 mpu;
 HMC5883L magnetom;
 int loops = 0 ;
 
@@ -50,26 +50,35 @@ int loops = 0 ;
     pinMode (LED, OUTPUT) ;
     // initialize MPU6050 and HMC5883L.
     printf("Initializing I2C devices...\n");
-    accelgyro.initialize();
-    accelgyro.setI2CMasterModeEnabled(0);
-    accelgyro.setI2CBypassEnabled(1);
+    mpu.initialize();
+    mpu.setI2CMasterModeEnabled(0);
+    mpu.setI2CBypassEnabled(1);
     magnetom.initialize();
     
     // verify connection
     printf("Testing device connections...\n");
-    printf(accelgyro.testConnection() ? "MPU6050 connection successful\n" : "MPU6050 connection failed\n");
+    printf(mpu.testConnection() ? "MPU6050 connection successful\n" : "MPU6050 connection failed\n");
     printf(magnetom.testConnection() ? "HMC5883L connection successful\n" : "HMC5883L connection failed\n");
     
     printf ("OK\n") ;
 }
 //
-void read_sensor () {
+void read_accel () {
+    
+    mpu.getAcceleration(&ax, &ay, &az);
+    
+}
 
-    // read raw accel/gyro measurements from device.
+void read_gyro () {
+
+    mpu.getRotation(&gx, &gy, &gz);
+
+}
+
+void read_MagneticField () {
+
     magnetom.getHeading(&cx, &cy, &cz);
-    accelgyro.getAcceleration(&ax, &ay, &az);
-    accelgyro.getRotation(&gx, &gy, &gz);
-    //accelgyro.getMotion6(&ax, &ay, &az, &gx, &gy, &gz);
+
 }
 
 //Sets the speed of the motor.
@@ -83,6 +92,12 @@ void motor_speed (int SA1,int SA2,int SB1,int SB2){
    softPwmWrite (B2,SB2) ;
 }
 
+void ProsingSensorData (){
+
+
+printf ("Done");
+
+}
 
 //Main:
 
@@ -93,8 +108,11 @@ int main (void)
     while(loops < 100){
         loops++;
         delay(20);
-        read_sensor ();
+        read_accel ();
+        read_gyro  ();
+        read_MagneticField ();
         printf ("%5hd %5hd %5hd %5hd %5hd %5hd %5hd %5hd %5hd\n",ax,ay,az,gx,gy,gz,cx,cy,cz);
     }
     motor_speed(0,0,0,0);
+    printf ("Done");
 }
