@@ -53,8 +53,8 @@ HMC5883L magnetom;
     
     // verify connection
     printf("Testing device connections...\n");
-    printf(MPU6050.testConnection() ? "MPU6050 connection successful\n" : "MPU6050 connection failed\n");
-    printf(HMC5883L.testConnection() ? "HMC5883L connection successful\n" : "HMC5883L connection failed\n");
+    printf(accelgyro.testConnection() ? "MPU6050 connection successful\n" : "MPU6050 connection failed\n");
+    printf(magnetom.testConnection() ? "HMC5883L connection successful\n" : "HMC5883L connection failed\n");
     
     printf ("OK\n") ;
 }
