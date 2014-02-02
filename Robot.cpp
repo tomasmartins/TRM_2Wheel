@@ -3,6 +3,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <unistd.h>
+#include <string.h>
+#include <stdint.h>
 #include <wiringPi.h>
 #include <softPwm.h>
 #include "I2Cdev.h"
