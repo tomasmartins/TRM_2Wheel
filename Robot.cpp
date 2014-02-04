@@ -1,8 +1,8 @@
-
 //Made by Tomás Roda Martins (t_martins)
 //compile: git pull origin
 //gcc -Wall -o robot Robot.cpp HMC5883L.cpp  MPU6050.cpp  I2Cdev.cpp -lwiringPi -lpthread
 // sudo ./robot
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <unistd.h>
@@ -16,7 +16,6 @@
 #include "HMC5883L.h"
 #include "MPU6050_6Axis_MotionApps20.h"
 
-
 int	B1 = 5;
 int	B2 = 6;
 int	A1 = 3;
@@ -27,15 +26,14 @@ MPU6050 mpu;
 HMC5883L magnetom;
 int loops = 0 ;
 
-// MPU control/status vars
+                        // MPU control/status vars
 bool dmpReady = false;  // set true if DMP init was successful
 uint8_t mpuIntStatus;   // holds actual interrupt status byte from MPU
 uint8_t devStatus;      // return status after each device operation (0 = success, !0 = error)
 uint16_t packetSize;    // expected DMP packet size (default is 42 bytes)
 uint16_t fifoCount;     // count of all bytes currently in FIFO
 uint8_t fifoBuffer[64]; // FIFO storage buffer
-
-// orientation/motion vars
+                        // orientation/motion vars
 Quaternion q;           // [w, x, y, z]         quaternion container
 VectorInt16 aa;         // [x, y, z]            accel sensor measurements
 VectorInt16 aaReal;     // [x, y, z]            gravity-free accel sensor measurements
@@ -129,11 +127,11 @@ void dmp_data (){
         
         printf("quat %7.2f %7.2f %7.2f %7.2f    ", q.w,q.x,q.y,q.z);
         
-        // display Euler angles in degrees;
-        printf("euler %7.2f %7.2f %7.2f    ", euler[0] * 180/M_PI, euler[1] * 180/M_PI, euler[2] * 180/M_PI);
+        // display Euler angles in Radian;
+        printf("euler %7.2f %7.2f %7.2f    ", euler[0], euler[1], euler[2]);
         
-        // display Euler angles in degrees
-        printf("ypr  %7.2f %7.2f %7.2f    ", ypr[0] * 180/M_PI, ypr[1] * 180/M_PI, ypr[2] * 180/M_PI);
+        // display Euler angles in Radian
+        printf("ypr  %7.2f %7.2f %7.2f    ", ypr[0], ypr[1], ypr[2]);
         
         // display real acceleration, adjusted to remove gravity
         printf("areal %6d %6d %6d    ", aaReal.x, aaReal.y, aaReal.z);
@@ -143,11 +141,7 @@ void dmp_data (){
         printf("aworld %6d %6d %6d    ", aaWorld.x, aaWorld.y, aaWorld.z);
 
 
-
-
-
 }
-
 
 
 void read_MagneticField () {
@@ -183,10 +177,8 @@ int main (void)
     while(loops < 100){
         loops++;
         delay(20);
-        read_accel ();
-        read_gyro  ();
-        read_MagneticField ();
-        printf ("%5hd %5hd %5hd %5hd %5hd %5hd %5hd %5hd %5hd\n",ax,ay,az,gx,gy,gz,cx,cy,cz);
+        dmp_data ();
+
     }
     motor_speed(0,0,0,0);
     printf ("Done");
