@@ -161,6 +161,7 @@ void dmp_data (){
 void read_MagneticField () {
 
     magnetom.getHeading(&cx, &cy, &cz);
+    printf("Compass X:%5hd Y:%5hd Z:%5hd   %6hd\n",cx,cy,cz);
 
 }
 
@@ -192,6 +193,7 @@ int main (void)
         loops++;
         delay(20);
         dmp_data ();
+        read_MagneticField ();
 
     }
     motor_speed(0,0,0,0);
