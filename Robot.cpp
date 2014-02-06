@@ -191,7 +191,7 @@ int main (void)
     while(loops < 100){
         loops++;
         delay(20);
-       // dmp_data ();
+        dmp_data ();
 
     }
     motor_speed(0,0,0,0);
