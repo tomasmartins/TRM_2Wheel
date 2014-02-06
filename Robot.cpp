@@ -103,8 +103,9 @@ float ypr[3];           // [yaw, pitch, roll]   yaw/pitch/roll container and gra
 }
 
 void dmp_data (){
+    // if programming failed, don't try to do anything
     if (!dmpReady) return;
-    
+    // get current FIFO count
     fifoCount = mpu.getFIFOCount();
     
     if (fifoCount == 1024) {
@@ -117,30 +118,40 @@ void dmp_data (){
         // read a packet from FIFO
         mpu.getFIFOBytes(fifoBuffer, packetSize);
         
+
+        // display quaternion values in easy matrix form: w x y z
+        mpu.dmpGetQuaternion(&q, fifoBuffer);
+        printf("quat %7.2f %7.2f %7.2f %7.2f    ", q.w,q.x,q.y,q.z);
+
+        // display Euler angles in degrees
+        mpu.dmpGetQuaternion(&q, fifoBuffer);
         mpu.dmpGetEuler(euler, &q);
+        printf("euler %7.2f %7.2f %7.2f    ", euler[0] * 180/M_PI, euler[1] * 180/M_PI, euler[2] * 180/M_PI);
+
+        // display Euler angles in degrees
+        mpu.dmpGetQuaternion(&q, fifoBuffer);
+        mpu.dmpGetGravity(&gravity, &q);
         mpu.dmpGetYawPitchRoll(ypr, &q, &gravity);
+        printf("ypr  %7.2f %7.2f %7.2f    ", ypr[0] * 180/M_PI, ypr[1] * 180/M_PI, ypr[2] * 180/M_PI);
+
+        // display real acceleration, adjusted to remove gravity
+        mpu.dmpGetQuaternion(&q, fifoBuffer);
+        mpu.dmpGetAccel(&aa, fifoBuffer);
+        mpu.dmpGetGravity(&gravity, &q);
+        mpu.dmpGetLinearAccel(&aaReal, &aa, &gravity);
+        printf("areal %6d %6d %6d    ", aaReal.x, aaReal.y, aaReal.z);
+
+        // display initial world-frame acceleration, adjusted to remove gravity
+        // and rotated based on known orientation from quaternion
         mpu.dmpGetQuaternion(&q, fifoBuffer);
         mpu.dmpGetAccel(&aa, fifoBuffer);
         mpu.dmpGetGravity(&gravity, &q);
         mpu.dmpGetLinearAccelInWorld(&aaWorld, &aaReal, &q);
-        
-        // display quaternion values in easy matrix form: w x y z
-        
-        printf("quat %7.2f %7.2f %7.2f %7.2f    ", q.w,q.x,q.y,q.z);
-        
-        // display Euler angles in Radian;
-        printf("euler %7.2f %7.2f %7.2f    ", euler[0], euler[1], euler[2]);
-        
-        // display Euler angles in Radian
-        printf("ypr  %7.2f %7.2f %7.2f    ", ypr[0], ypr[1], ypr[2]);
-        
-        // display real acceleration, adjusted to remove gravity
-        printf("areal %6d %6d %6d    ", aaReal.x, aaReal.y, aaReal.z);
-        
-        // display initial world-frame acceleration, adjusted to remove gravity
-        // and rotated based on known orientation from quaternion
         printf("aworld %6d %6d %6d    ", aaWorld.x, aaWorld.y, aaWorld.z);
-    }
+
+        
+
+        printf("\n");
 
 
 }
