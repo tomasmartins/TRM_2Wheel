@@ -12,7 +12,6 @@
 #include <wiringPi.h>
 #include <softPwm.h>
 #include "I2Cdev.h"
-#include "MPU6050.h"
 #include "HMC5883L.h"
 #include "MPU6050_6Axis_MotionApps20.h"
 
