@@ -152,6 +152,7 @@ void dmp_data (){
         
 
         printf("\n");
+    }
 
 
 }
