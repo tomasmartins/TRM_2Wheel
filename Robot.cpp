@@ -67,8 +67,8 @@ float ypr[3];           // [yaw, pitch, roll]   yaw/pitch/roll container and gra
     // initialize MPU6050 and HMC5883L.
     printf("Initializing I2C devices...\n");
     mpu.initialize();
-    mpu.setI2CMasterModeEnabled(0);
-    mpu.setI2CBypassEnabled(1);
+ //   mpu.setI2CMasterModeEnabled(0);
+ //   mpu.setI2CBypassEnabled(1);
     magnetom.initialize();
     
     // verify connection
