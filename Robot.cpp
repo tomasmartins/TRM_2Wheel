@@ -138,6 +138,7 @@ void dmp_data (){
         // display initial world-frame acceleration, adjusted to remove gravity
         // and rotated based on known orientation from quaternion
         printf("aworld %6d %6d %6d    ", aaWorld.x, aaWorld.y, aaWorld.z);
+    }
 
 
 }
