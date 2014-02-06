@@ -161,7 +161,7 @@ void dmp_data (){
 void read_MagneticField () {
 
     magnetom.getHeading(&cx, &cy, &cz);
-    printf("Compass X:%5hd Y:%5hd Z:%5hd   %6hd\n",cx,cy,cz);
+    printf("Compass X:%5hd Y:%5hd Z:%5hd \n",cx,cy,cz);
 
 }
 
