@@ -118,7 +118,7 @@ void dmp_data (){
         // read a packet from FIFO
         mpu.getFIFOBytes(fifoBuffer, packetSize);
         
-
+/*
         // display quaternion values in easy matrix form: w x y z
         mpu.dmpGetQuaternion(&q, fifoBuffer);
         printf("quat %7.2f %7.2f %7.2f %7.2f    ", q.w,q.x,q.y,q.z);
@@ -140,7 +140,7 @@ void dmp_data (){
         mpu.dmpGetGravity(&gravity, &q);
         mpu.dmpGetLinearAccel(&aaReal, &aa, &gravity);
         printf("areal %6d %6d %6d    ", aaReal.x, aaReal.y, aaReal.z);
-
+*/
         // display initial world-frame acceleration, adjusted to remove gravity
         // and rotated based on known orientation from quaternion
         mpu.dmpGetQuaternion(&q, fifoBuffer);
