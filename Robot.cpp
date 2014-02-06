@@ -193,7 +193,6 @@ int main (void)
         loops++;
         delay(20);
         dmp_data ();
-        read_MagneticField ();
 
     }
     motor_speed(0,0,0,0);
