@@ -117,6 +117,8 @@ void dmp_data (){
         // read a packet from FIFO
         mpu.getFIFOBytes(fifoBuffer, packetSize);
         
+        mpu.dmpGetEuler(euler, &q);
+        mpu.dmpGetYawPitchRoll(ypr, &q, &gravity);
         mpu.dmpGetQuaternion(&q, fifoBuffer);
         mpu.dmpGetAccel(&aa, fifoBuffer);
         mpu.dmpGetGravity(&gravity, &q);
